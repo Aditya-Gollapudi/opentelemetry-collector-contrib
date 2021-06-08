@@ -32,11 +32,13 @@ func NewRestClient(client Client) *HTTPRestClient {
 
 // EndpointResponse gets the task metadata and docker stats from ECS Task Metadata Endpoint
 func (c *HTTPRestClient) EndpointResponse() ([]byte, []byte, error) {
-	taskStats, err := c.client.Get(TaskStatsPath)
+	//taskStats, err := c.client.Get(TaskStatsPath)
+	taskStats, err := ioutil.ReadFile("/Users/hrayhan/Work/opentelemetry-collector-contrib/receiver/awsecscontainermetricsreceiver/testdata/task_stats.json")
 	if err != nil {
 		return nil, nil, err
 	}
-	taskMetadata, err := c.client.Get(TaskMetadataPath)
+	//taskMetadata, err := c.client.Get(TaskMetadataPath)
+	taskMetadata, err := ioutil.ReadFile("/Users/hrayhan/Work/opentelemetry-collector-contrib/receiver/awsecscontainermetricsreceiver/testdata/task_metadata.json")
 	if err != nil {
 		return nil, nil, err
 	}

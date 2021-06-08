@@ -15,6 +15,8 @@
 package awsecscontainermetricsreceiver
 
 import (
+	"fmt"
+
 	"context"
 	"time"
 
@@ -89,6 +91,8 @@ func (aecmr *awsEcsContainerMetricsReceiver) collectDataFromEndpoint(ctx context
 	stats, metadata, err := aecmr.provider.GetStats()
 
 	if err != nil {
+		aecmr.logger.Error("stats",stats)
+		aecmr.logger.Error("metadata",metadata)
 		aecmr.logger.Error("Failed to collect stats", zap.Error(err))
 		return err
 	}
