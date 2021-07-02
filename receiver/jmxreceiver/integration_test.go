@@ -34,8 +34,8 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer/consumertest"
-	"go.opentelemetry.io/collector/consumer/pdata"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
+	"go.opentelemetry.io/collector/model/pdata"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest/observer"
 )
@@ -180,9 +180,7 @@ func (suite *JMXIntegrationSuite) TestJMXReceiverHappyPath() {
 		}
 
 		metric := consumer.AllMetrics()[0]
-		metricCount, datapointCount := metric.MetricAndDataPointCount()
-		require.Equal(t, 1, metricCount)
-		require.Equal(t, 1, datapointCount)
+		require.Equal(t, 1, metric.DataPointCount())
 
 		rm := metric.ResourceMetrics().At(0)
 		resource := rm.Resource()

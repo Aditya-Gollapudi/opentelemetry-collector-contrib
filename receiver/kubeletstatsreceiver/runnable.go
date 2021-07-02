@@ -20,7 +20,7 @@ import (
 
 	"go.opentelemetry.io/collector/config"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/consumer/pdata"
+	"go.opentelemetry.io/collector/model/pdata"
 	"go.opentelemetry.io/collector/obsreport"
 	"go.opentelemetry.io/collector/translator/internaldata"
 	"go.uber.org/zap"
@@ -104,14 +104,12 @@ func (r *runnable) Run() error {
 		internaldata.OCToMetrics(mds[i].Node, mds[i].Resource, mds[i].Metrics).ResourceMetrics().MoveAndAppendTo(metrics.ResourceMetrics())
 	}
 
-	var numPoints int
 	ctx := obsreport.ReceiverContext(r.ctx, r.receiverID, transport)
 	ctx = r.obsrecv.StartMetricsOp(ctx)
+	numPoints := metrics.DataPointCount()
 	err = r.consumer.ConsumeMetrics(ctx, metrics)
 	if err != nil {
 		r.logger.Error("ConsumeMetricsData failed", zap.Error(err))
-	} else {
-		_, numPoints = metrics.MetricAndDataPointCount()
 	}
 	r.obsrecv.EndMetricsOp(ctx, typeStr, numPoints, err)
 

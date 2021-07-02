@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/consumer/pdata"
+	"go.opentelemetry.io/collector/model/pdata"
 	"go.uber.org/zap"
 )
 
@@ -56,6 +56,10 @@ func prepareResource(attrMap pdata.AttributeMap, selectedKeys []string) pdata.Re
 
 func filterAttributeMap(attrMap pdata.AttributeMap, selectedKeys []string) pdata.AttributeMap {
 	filteredAttrMap := pdata.NewAttributeMap()
+	if len(selectedKeys) == 0 {
+		return filteredAttrMap
+	}
+
 	filteredAttrMap.EnsureCapacity(10)
 	for _, key := range selectedKeys {
 		val, _ := attrMap.Get(key)

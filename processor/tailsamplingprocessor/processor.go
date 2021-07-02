@@ -27,7 +27,7 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenterror"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/consumer/pdata"
+	"go.opentelemetry.io/collector/model/pdata"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/idbatcher"
@@ -126,6 +126,9 @@ func getPolicyEvaluator(logger *zap.Logger, cfg *PolicyCfg) (sampling.PolicyEval
 	case StringAttribute:
 		safCfg := cfg.StringAttributeCfg
 		return sampling.NewStringAttributeFilter(logger, safCfg.Key, safCfg.Values, safCfg.EnabledRegexMatching, safCfg.CacheMaxSize), nil
+	case StatusCode:
+		scfCfg := cfg.StatusCodeCfg
+		return sampling.NewStatusCodeFilter(logger, scfCfg.StatusCodes)
 	case RateLimiting:
 		rlfCfg := cfg.RateLimitingCfg
 		return sampling.NewRateLimiting(logger, rlfCfg.SpansPerSecond), nil
@@ -388,7 +391,8 @@ func prepareTraceBatch(rss pdata.ResourceSpans, spans []*pdata.Span) pdata.Trace
 	rss.Resource().CopyTo(rs.Resource())
 	ils := rs.InstrumentationLibrarySpans().AppendEmpty()
 	for _, span := range spans {
-		ils.Spans().Append(*span)
+		sp := ils.Spans().AppendEmpty()
+		span.CopyTo(sp)
 	}
 	return traceTd
 }

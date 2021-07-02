@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/consumer/pdata"
+	"go.opentelemetry.io/collector/model/pdata"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal"
@@ -131,7 +131,8 @@ func Test_ecsDetectV4(t *testing.T) {
 	for i, field := range attribFields {
 		ava := pdata.NewAttributeValueArray()
 		av := ava.ArrayVal()
-		av.Append(pdata.NewAttributeValueString(attribVals[i]))
+		avs := av.AppendEmpty()
+		pdata.NewAttributeValueString(attribVals[i]).CopyTo(avs)
 		attr.Insert(field, ava)
 	}
 
