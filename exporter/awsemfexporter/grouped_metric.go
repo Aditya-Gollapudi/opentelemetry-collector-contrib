@@ -58,19 +58,13 @@ func addToGroupedMetric(pmd *pdata.Metric, groupedMetrics map[interface{}]*Group
 		labels := dp.Labels
 
 		if metricType, ok := labels["Type"]; ok {
-			if(metricType == "Pod" && config.CreateEKSFargateKubernetesObject){
+			if((metricType == "Pod" || metricType == "Container")&& config.CreateEKSFargateKubernetesObject){
 				err := addKubernetesWrapper(labels)
 				if err != nil{
 					logger.Warn("Issue forming Kubernetes Object", zap.Error(err))
 					return err
 				}
-			} else if (metricType == "Container" && config.CreateEKSFargateKubernetesObject){
-				err  := addKubernetesWrapper(labels)
-				if err != nil {
-					logger.Warn("Issue forming Kubernetes Object", zap.Error(err))
-					return err
-				}
-			}
+			} 
 		}
 
 		metric := &MetricInfo{
@@ -216,6 +210,7 @@ func recursivelyFillInMap(labels map[string]string, schema map[string]interface{
 				return nil, errors.New("Non string, struct value found in schema")
 			}
 			labelVal, exists := labels[stringVal]
+			// This deleting implicitly deals with the difference between Container metrics and Pod metrics
 			if !exists{
 				delete(schema,k)
 			} else {
