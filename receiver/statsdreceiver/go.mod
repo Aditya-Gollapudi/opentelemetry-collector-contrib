@@ -12,6 +12,6 @@ require (
 	go.opencensus.io v0.23.0
 	go.opentelemetry.io/collector v0.28.1-0.20210616151306-cdc163427b8e
 	go.opentelemetry.io/otel v0.20.0
-	go.uber.org/zap v1.17.0
+	go.uber.org/zap v1.18.1
 	gopkg.in/ini.v1 v1.57.0 // indirect
 )
