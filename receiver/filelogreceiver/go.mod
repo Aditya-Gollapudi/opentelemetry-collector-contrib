@@ -9,7 +9,7 @@ require (
 	github.com/open-telemetry/opentelemetry-log-collection v0.18.1-0.20210524142652-964a7f9c789f
 	github.com/stretchr/testify v1.7.0
 	go.opentelemetry.io/collector v0.28.1-0.20210616151306-cdc163427b8e
-	go.uber.org/zap v1.17.0
+	go.uber.org/zap v1.18.1
 	gopkg.in/yaml.v2 v2.4.0
 )
 
