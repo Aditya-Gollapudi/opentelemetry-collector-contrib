@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/census-instrumentation/opencensus-proto v0.3.0
-	github.com/hashicorp/go-hclog v0.16.1
+	github.com/hashicorp/go-hclog v0.16.2
 	github.com/hashicorp/go-immutable-radix v1.2.0 // indirect
 	github.com/jaegertracing/jaeger v1.23.0
 	github.com/logzio/jaeger-logzio v1.0.2
