@@ -8,7 +8,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/go-immutable-radix v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect
-	github.com/newrelic/newrelic-telemetry-sdk-go v0.7.1
+	github.com/newrelic/newrelic-telemetry-sdk-go v0.8.0
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	go.opencensus.io v0.23.0
