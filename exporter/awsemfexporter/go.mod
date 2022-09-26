@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/aws/aws-sdk-go v1.40.14
-	github.com/census-instrumentation/opencensus-proto v0.3.0
+	github.com/census-instrumentation/opencensus-proto v0.4.1
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/awsutil v0.0.0-00010101000000-000000000000
@@ -13,8 +13,7 @@ require (
 	go.opentelemetry.io/collector v0.31.1-0.20210807221137-acd1eb198b27
 	go.opentelemetry.io/collector/model v0.31.1-0.20210807221137-acd1eb198b27
 	go.uber.org/zap v1.18.1
-	golang.org/x/tools v0.1.4 // indirect
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.1
 	gopkg.in/square/go-jose.v2 v2.5.1 // indirect
 )
 
